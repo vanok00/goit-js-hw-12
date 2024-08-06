@@ -52,4 +52,4 @@ function loadCondition(element, status) {
 import ButtonService from './js/loadmoreservice.js';
 const loadMoreBtn = new ButtonService(refs.loadMoreBtn, 'is-hidden');
 console.log(loadMoreBtn);
-loadMoreBtn.hide();
+loadMoreBtn.show();
