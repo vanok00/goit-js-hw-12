@@ -6,6 +6,7 @@ import { markUpRequest } from './js/render-function.js';
 import { toggleLoader } from './js/refs.js';
 import ButtonService from './js/loadmoreservice.js';
 const loadMoreBtnEl = document.querySelector('.btn');
+const loadingText = document.querySelector('.textloader');
 
 const loadMoreBtn = new ButtonService(loadMoreBtnEl, 'is-hidden');
 loadMoreBtn.hide();
@@ -72,6 +73,7 @@ async function searchQuery(event) {
     }
     markUpRequest(hits);
   } catch (err) {
+    loadMoreBtn.hide();
     iziToast.error({
       message: 'Sorry, there are no images matching your search',
       position: 'topRight',
@@ -97,7 +99,7 @@ async function handleLoadMore() {
     toggleLoader(true);
     const { hits } = await searchPhoto(params);
     markUpRequest(hits);
-    let el = document.querySelector('.scroll');
+    let el = document.querySelector('.list-item');
     let rect = el.getBoundingClientRect();
 
     window.scrollBy({
