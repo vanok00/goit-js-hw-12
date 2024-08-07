@@ -1,22 +1,21 @@
-'use sctict';
-export function searchPhotoByQuery(query) {
-  const URL = 'https://pixabay.com/api/';
+'use strict';
+import axios from 'axios';
+axios.defaults.baseURL = 'https://pixabay.com/api/';
+export async function searchPhoto({ q, page, per_page }) {
   const API_KEY = '45176158-e3d3b26982233790558f60971';
-  const searchParams = new URLSearchParams({
+  const params = new URLSearchParams({
     key: API_KEY,
-    q: query,
+    q: q,
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: true,
+    page,
+    per_page,
   });
-  return fetch(`${URL}?${searchParams.toString()}`, {
-    headers: {
-      Accept: 'application/json',
-    },
-  }).then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
-  });
+  try {
+    return await axios
+      .get('', { params })
+      .then(({ data }) => data)
+      .catch(error => console.log(error));
+  } catch (error) {}
 }

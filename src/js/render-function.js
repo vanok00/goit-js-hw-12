@@ -1,7 +1,8 @@
 'use strict';
-const picturesList = document.querySelector('.list');
+
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+const picturesList = document.querySelector('.list');
 const lightbox = new SimpleLightbox('.list  a', {
   captionsData: 'alt',
 });

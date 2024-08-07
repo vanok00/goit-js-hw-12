@@ -1,55 +1,127 @@
 'use strict';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import { searchPhoto } from './js/pixabay-api.js';
 import { markUpRequest } from './js/render-function.js';
-import { searchPhotoByQuery } from './js/pixabay-api.js';
+import { toggleLoader } from './js/refs.js';
+import ButtonService from './js/loadmoreservice.js';
+const loadMoreBtnEl = document.querySelector('.btn');
+
+const loadMoreBtn = new ButtonService(loadMoreBtnEl, 'is-hidden');
+loadMoreBtn.hide();
+
+const params = {
+  q: '',
+  page: 1,
+  per_page: 15,
+  maxPage: 0,
+};
+
 const picturesList = document.querySelector('.list');
 const loader = document.querySelector('.loader');
 const form = document.querySelector('.js-form');
-import refs from './js/refs.js';
+
 loader.style.display = 'none';
+
 form.addEventListener('submit', searchQuery);
 
-function searchQuery(event) {
+async function searchQuery(event) {
   event.preventDefault();
   picturesList.innerHTML = '';
-  const inputValue = event.target.request.value.trim().toLowerCase();
-  if (!inputValue) {
+  const searchForm = event.currentTarget;
+  // params.q = form.elements.search.value.toLowerCase().trim();
+
+  params.q = event.target.request.value.trim().toLowerCase();
+
+  if (!params.q) {
+    loadMoreBtn.hide();
+    iziToast.error({
+      message: 'Please enter the data in the input field',
+      position: 'topRight',
+      messageColor: '#ffffff',
+      backgroundColor: '#EF4040',
+    });
     return;
   }
-  loadCondition(loader, true);
-  searchPhotoByQuery(inputValue)
-    .then(data => {
-      if (data.hits.length === 0) {
-        throw new Error(response.status);
-      }
-      loadCondition(loader, false);
-      markUpRequest(data.hits);
-    })
-    .catch(error => {
-      loadCondition(loader, false);
-      catchError(error);
-    })
-    .finally(form.reset());
-}
-function catchError(error) {
-  return iziToast.show({
-    message:
-      'Sorry, there are no images matching your search query. Please try again!',
-    color: 'red',
-    position: 'topRight',
-    closeOnClick: true,
-  });
-}
-function loadCondition(element, status) {
-  if (status) {
-    element.style.display = 'block';
-  } else {
-    element.style.display = 'none';
+
+  params.page = 1;
+
+  loadMoreBtn.show();
+  loadMoreBtn.disable();
+
+  try {
+    toggleLoader(true);
+    const { total, hits } = await searchPhoto(params);
+    params.maxPage = Math.ceil(total / params.per_page);
+
+    if (params.maxPage > 1) {
+      loadMoreBtn.enable();
+      loadMoreBtnEl.addEventListener('click, handleLoadMore');
+    } else {
+      loadMoreBtn.hide();
+    }
+    if (!hits.length) {
+      loadMoreBtn.hide();
+      iziToast.error({
+        message: `Sorry, there was an error fetching the images. Please try again later!`,
+        position: 'topRight',
+        messageColor: '#ffffff',
+        backgroundColor: '#EF4040',
+      });
+      return;
+    }
+    markUpRequest(hits);
+  } catch (err) {
+    iziToast.error({
+      message: 'Sorry, there are no images matching your search',
+      position: 'topRight',
+      messageColor: '#ffffff',
+      backgroundColor: '#EF4040',
+    });
+  } finally {
+    toggleLoader(false);
+    if (params.page === params.maxPage) {
+      loadMoreBtn.hide();
+      loadMoreBtnEl.removeEventListener('click', handleLoadMore);
+    } else {
+      loadMoreBtn.enable();
+    }
+    searchForm.reset();
   }
 }
 
-import ButtonService from './js/loadmoreservice.js';
-const loadMoreBtn = new ButtonService(refs.loadMoreBtn, 'is-hidden');
-console.log(loadMoreBtn);
-loadMoreBtn.show();
+async function handleLoadMore() {
+  loadMoreBtn.disable();
+  params.page += 1;
+  try {
+    toggleLoader(true);
+    const { hits } = await searchPhoto(params);
+    markUpRequest(hits);
+    let el = document.querySelector('.scroll');
+    let rect = el.getBoundingClientRect();
+
+    window.scrollBy({
+      top: rect.height * 2,
+      left: rect.width,
+      behavior: 'smooth',
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    toggleLoader(false);
+    if (params.page >= params.maxPage) {
+      loadMoreBtn.hide();
+      iziToast.info({
+        message: 'You have reached the end of search results.',
+        position: 'topRight',
+        messageColor: '#ffffff',
+        backgroundColor: '#4e75ff',
+      });
+
+      loadMoreBtn.hide();
+      loadMoreBtnEl.removeEventListener('click', handleLoadMore);
+    } else {
+      loadMoreBtn.enable();
+    }
+  }
+}

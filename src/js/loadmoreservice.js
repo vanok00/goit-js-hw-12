@@ -1,3 +1,5 @@
+'use strict';
+
 export default class ButtonService {
   constructor(buttonEL, hiddenClass) {
     this.buttonEL = buttonEL;
