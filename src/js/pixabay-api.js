@@ -12,10 +12,13 @@ export async function searchPhoto({ q, page, per_page }) {
     page,
     per_page,
   });
+
   try {
     return await axios
       .get('', { params })
       .then(({ data }) => data)
-      .catch(error => console.log(error));
-  } catch (error) {}
+      .catch(err => console.log(err));
+  } catch (err) {
+    console.error(err);
+  }
 }

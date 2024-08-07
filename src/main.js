@@ -3,11 +3,11 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { searchPhoto } from './js/pixabay-api.js';
 import { markUpRequest } from './js/render-function.js';
-import { toggleLoader } from './js/refs.js';
+import { toggleLoader } from './js/loader.js';
 import ButtonService from './js/loadmoreservice.js';
-const loadMoreBtnEl = document.querySelector('.btn');
-const loadingText = document.querySelector('.textloader');
 
+// const loadingText = document.querySelector('.textloader');
+const loadMoreBtnEl = document.querySelector('.btn');
 const loadMoreBtn = new ButtonService(loadMoreBtnEl, 'is-hidden');
 loadMoreBtn.hide();
 
@@ -19,10 +19,10 @@ const params = {
 };
 
 const picturesList = document.querySelector('.list');
+// console.log(picturesList);
+
 const loader = document.querySelector('.loader');
 const form = document.querySelector('.js-form');
-
-loader.style.display = 'none';
 
 form.addEventListener('submit', searchQuery);
 
@@ -57,7 +57,7 @@ async function searchQuery(event) {
 
     if (params.maxPage > 1) {
       loadMoreBtn.enable();
-      loadMoreBtnEl.addEventListener('click, handleLoadMore');
+      loadMoreBtnEl.addEventListener('click', handleLoadMore);
     } else {
       loadMoreBtn.hide();
     }
@@ -99,14 +99,17 @@ async function handleLoadMore() {
     toggleLoader(true);
     const { hits } = await searchPhoto(params);
     markUpRequest(hits);
-    let el = document.querySelector('.list-item');
-    let rect = el.getBoundingClientRect();
+
+    let elem = document.querySelector('.list');
+    let rect = elem.getBoundingClientRect();
 
     window.scrollBy({
       top: rect.height * 2,
       left: rect.width,
       behavior: 'smooth',
     });
+
+    // console.log(rect.height);
   } catch (error) {
     console.log(error);
   } finally {
