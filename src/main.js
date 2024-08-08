@@ -19,20 +19,14 @@ const params = {
 };
 
 const form = document.querySelector('.js-form');
-const picturesList = document.querySelector('.list');
-// console.log(picturesList);
-
-const loader = document.querySelector('.loader');
-
-form.addEventListener('submit', searchPhot);
+form.addEventListener('submit', searchPhoto);
 
 async function searchPhoto(event) {
   event.preventDefault();
-  picturesList.innerHTML = '';
+  clearImages;
   const searchForm = event.currentTarget;
-  // params.q = form.elements.search.value.toLowerCase().trim();
 
-  params.q = event.target.request.value.trim().toLowerCase();
+  params.q = searchForm.elements.request.value.trim().toLowerCase();
 
   if (!params.q) {
     loadMoreBtn.hide();
@@ -97,7 +91,7 @@ async function handleLoadMore() {
   params.page += 1;
   try {
     toggleLoader(true);
-    const { hits } = await searchPhoto(params);
+    const { hits } = await searchPhotoQuery(params);
     createImages(hits);
 
     let elem = document.querySelector('.list-item');
@@ -108,8 +102,6 @@ async function handleLoadMore() {
       left: rect.width,
       behavior: 'smooth',
     });
-
-    // console.log(rect.height);
   } catch (error) {
     console.log(error);
   } finally {
