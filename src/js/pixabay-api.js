@@ -4,7 +4,7 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
-export async function searchPhotoQuery({ q, page, per_page }) {
+export async function searchPhotoQuery({ q, page, per_page = 20 }) {
   const API_KEY = '45176158-e3d3b26982233790558f60971';
   const params = new URLSearchParams({
     key: API_KEY,

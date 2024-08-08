@@ -111,7 +111,7 @@ async function handleLoadMore() {
     if (params.page >= params.maxPage) {
       loadMoreBtn.hide();
       iziToast.info({
-        message: 'You have reached the end of search results.',
+        message: 'We`re sorry, but you`ve reached the end of search results.',
         position: 'topRight',
         messageColor: '#ffffff',
         backgroundColor: '#4e75ff',

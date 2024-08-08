@@ -57,3 +57,13 @@ export function clearImages() {
   const galleryList = document.querySelector('.gallery');
   galleryList.innerHTML = '';
 }
+
+export function catchError() {
+  return iziToast.show({
+    message:
+      'Sorry, there are no images matching your search query. Please try again!',
+    color: 'red',
+    position: 'topRight',
+    closeOnClick: true,
+  });
+}
