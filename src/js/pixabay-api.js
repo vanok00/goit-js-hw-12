@@ -1,8 +1,11 @@
 'use strict';
+
 import axios from 'axios';
+
 axios.defaults.baseURL = 'https://pixabay.com/api/';
-export async function searchPhoto({ q, page, per_page }) {
-  const API_KEY = '45176158-e3d3b26982233790558f60971';
+
+export async function searchPhotoQuery({ q, page, per_page }) {
+  const API_KEY = '45152929-a1340ee97784cf10d0ad70de4';
   const params = new URLSearchParams({
     key: API_KEY,
     q: q,
@@ -14,10 +17,7 @@ export async function searchPhoto({ q, page, per_page }) {
   });
 
   try {
-    return await axios
-      .get('', { params })
-      .then(({ data }) => data)
-      .catch(err => console.log(err));
+    return await axios.get('', { params });
   } catch (err) {
     console.error(err);
   }

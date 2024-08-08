@@ -1,12 +1,12 @@
 'use strict';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-import { searchPhoto } from './js/pixabay-api.js';
-import { markUpRequest } from './js/render-function.js';
+
+import { searchPhotoQuery } from './js/pixabay-api.js';
+import { createImages, clearImages } from './js/render-function.js';
 import { toggleLoader } from './js/loader.js';
 import ButtonService from './js/loadmoreservice.js';
 
-// const loadingText = document.querySelector('.textloader');
 const loadMoreBtnEl = document.querySelector('.btn');
 const loadMoreBtn = new ButtonService(loadMoreBtnEl, 'is-hidden');
 loadMoreBtn.hide();
@@ -18,15 +18,15 @@ const params = {
   maxPage: 0,
 };
 
+const form = document.querySelector('.js-form');
 const picturesList = document.querySelector('.list');
 // console.log(picturesList);
 
 const loader = document.querySelector('.loader');
-const form = document.querySelector('.js-form');
 
-form.addEventListener('submit', searchQuery);
+form.addEventListener('submit', searchPhot);
 
-async function searchQuery(event) {
+async function searchPhoto(event) {
   event.preventDefault();
   picturesList.innerHTML = '';
   const searchForm = event.currentTarget;
@@ -52,7 +52,7 @@ async function searchQuery(event) {
 
   try {
     toggleLoader(true);
-    const { total, hits } = await searchPhoto(params);
+    const { total, hits } = await searchPhotoQuery(params);
     params.maxPage = Math.ceil(total / params.per_page);
 
     if (params.maxPage > 1) {
@@ -71,7 +71,7 @@ async function searchQuery(event) {
       });
       return;
     }
-    markUpRequest(hits);
+    createImages(hits);
   } catch (err) {
     loadMoreBtn.hide();
     iziToast.error({
@@ -98,9 +98,9 @@ async function handleLoadMore() {
   try {
     toggleLoader(true);
     const { hits } = await searchPhoto(params);
-    markUpRequest(hits);
+    createImages(hits);
 
-    let elem = document.querySelector('.list');
+    let elem = document.querySelector('.list-item');
     let rect = elem.getBoundingClientRect();
 
     window.scrollBy({

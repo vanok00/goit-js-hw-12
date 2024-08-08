@@ -2,11 +2,10 @@
 
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-const picturesList = document.querySelector('.list');
 
-export function markUpRequest(hits) {
-  const gallery = document.querySelector('.list');
-  const markUp = hits
+export function createImages(data) {
+  const gallery = document.querySelector('.js-gallery');
+  let markUp = data
     .map(
       ({
         webformatURL,
@@ -17,7 +16,7 @@ export function markUpRequest(hits) {
         comments,
         downloads,
       }) => {
-        `<li class = "list-item">
+        return `<li class = "list-item">
   <a href="${largeImageURL}">
     <div class = "preview-photo"><img src="${webformatURL}" alt="${tags}"></div>
      <ul class="img-desc">
@@ -47,8 +46,15 @@ export function markUpRequest(hits) {
 
   gallery.insertAdjacentHTML('beforeend', markUp);
 
-  const lightbox = new SimpleLightbox('.list  a', {
+  const lightbox = new SimpleLightbox('.gallery  a', {
+    captions: true,
+    captionsDelay: 250,
     captionsData: 'alt',
   });
   lightbox.refresh();
+}
+
+export function clearImages() {
+  const galleryList = document.querySelector('.gallery');
+  galleryList.innerHTML = '';
 }
