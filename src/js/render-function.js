@@ -15,8 +15,8 @@ export function createImages(data) {
         views,
         comments,
         downloads,
-      }) => {
-        return `<li class = "list-item">
+      }) =>
+        `<li class = "list-item">
   <a href="${largeImageURL}">
     <div class = "preview-photo"><img src="${webformatURL}" alt="${tags}"></div>
      <ul class="img-desc">
@@ -39,8 +39,7 @@ export function createImages(data) {
   </ul>
   </a>
 
-</li>`;
-      }
+</li>`
     )
     .join('');
 

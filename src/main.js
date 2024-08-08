@@ -23,10 +23,10 @@ form.addEventListener('submit', searchPhoto);
 
 async function searchPhoto(event) {
   event.preventDefault();
-  clearImages;
-  const searchForm = event.currentTarget;
+  clearImages();
 
-  params.q = searchForm.elements.request.value.trim().toLowerCase();
+  const searchForm = event.currentTarget;
+  params.q = searchForm.elements.request.value.toLowerCase().trim();
 
   if (!params.q) {
     loadMoreBtn.hide();
@@ -36,6 +36,7 @@ async function searchPhoto(event) {
       messageColor: '#ffffff',
       backgroundColor: '#EF4040',
     });
+    toggleLoader(false);
     return;
   }
 
@@ -89,6 +90,7 @@ async function searchPhoto(event) {
 async function handleLoadMore() {
   loadMoreBtn.disable();
   params.page += 1;
+
   try {
     toggleLoader(true);
     const { hits } = await searchPhotoQuery(params);
