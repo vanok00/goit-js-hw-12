@@ -2,15 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/goit-js-hw-12/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/algorit-js-form-107/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
-     
+    <title>Vanilla App Template</title> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
-    <script type="module" crossorigin src="/goit-js-hw-12/commonHelpers.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-8c59ed88.js">
-    <link rel="stylesheet" href="/goit-js-hw-12/assets/vendor-1cd1f9d9.css">
-    <link rel="stylesheet" href="/goit-js-hw-12/assets/index-15b8d738.css">
+    <script type="module" crossorigin src="/algorit-js-form-107/commonHelpers.js"></script>
+    <link rel="modulepreload" crossorigin href="/algorit-js-form-107/assets/vendor-ChER3Ete.js">
+    <link rel="stylesheet" crossorigin href="/algorit-js-form-107/assets/vendor-DumFYO8Z.css">
+    <link rel="stylesheet" crossorigin href="/algorit-js-form-107/assets/index-CA6sW5Mt.css">
   </head>
   <body>
     <div class="container">
@@ -19,14 +18,15 @@
   <button type="submit" class="form-button js-form-button">Search</button>
 </form>
 <span class="loader"></span>
-<ul class="list"></ul>
-<button type="button" class="btn btn-primary button" data-action="load-more">
-  <!-- Спінер -->
-  <span class="spinner-border spinner-border-sm spinner is-hidden" role="status" aria-hidden="true">Loading images, please wait...</span>
+<ul class="gallery js-gallery"></ul>
 
-  <span class="label">Load more</span>
-</button>
+<div class="loader-wrapper">
+  <span class="textloader js-loader is-hidden">Loading images, please wait...</span>
 </div>
-
+<div class="btn-container">
+  <button type="button" class="btn is-hidden" data-action="load-more">
+    <span class="label-btn-primary">Load more</span>
+  </button>
+</div>
   </body>
 </html>
