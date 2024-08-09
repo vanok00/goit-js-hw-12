@@ -58,12 +58,19 @@ p {
   margin-bottom: 32px;
 }
 .input-text {
+  font-family: 'Montserrat', sans-serif;
   outline: none;
   border: 1px solid #808080;
   border-radius: 4px;
-  width: 371px;
+  width: 272px;
   height: 40px;
-  padding-left: 10px;
+  padding: 8px 16px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #808080;
+  background-color: #fff;
 }
 .form-btn {
   border: none;
