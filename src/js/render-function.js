@@ -3,9 +3,15 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-export function createImages(data) {
+const lightbox = new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionsDelay: 250,
+  captionsData: 'alt',
+});
+
+export default function createImages(images) {
   const gallery = document.querySelector('.js-gallery');
-  let markUp = data
+  const markUp = images
     .map(
       ({
         webformatURL,
@@ -44,26 +50,5 @@ export function createImages(data) {
     .join('');
 
   gallery.insertAdjacentHTML('beforeend', markUp);
-
-  const lightbox = new SimpleLightbox('.gallery  a', {
-    captions: true,
-    captionsDelay: 250,
-    captionsData: 'alt',
-  });
   lightbox.refresh();
-}
-
-export function clearImages() {
-  const galleryList = document.querySelector('.gallery');
-  galleryList.innerHTML = '';
-}
-
-export function catchError() {
-  return iziToast.show({
-    message:
-      'Sorry, there are no images matching your search query. Please try again!',
-    color: 'red',
-    position: 'topRight',
-    closeOnClick: true,
-  });
 }
