@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/goit-js-hw-12/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title> 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
-    <script type="module" crossorigin src="/goit-js-hw-12/commonHelpers.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-D1eTGYtO.js">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-DumFYO8Z.css">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-B5Tyz0Xy.css">
-  </head>
-  <body>
-    <div class="container">
-<form autocomplete="off" class="form js-form">
-  <input type="text" class="input js-input" name="request" placeholder="Search images...">
-  <button type="submit" class="form-button js-form-button">Search</button>
-</form>
-<span class="loader"></span>
-<ul class="gallery js-gallery"></ul>
 
-<div class="loader-wrapper">
-  <span class="textloader js-loader is-hidden">Loading images, please wait...</span>
-</div>
-<div class="btn-container">
-  <button type="button" class="btn is-hidden" data-action="load-more">
-    <span class="label-btn-primary">Load more</span>
-  </button>
-</div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <script type="module" crossorigin src="/goit-js-hw-12/commonHelpers.js"></script>
+  <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-D1eTGYtO.js">
+  <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-DumFYO8Z.css">
+  <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-4OGqd6Gu.css">
+</head>
+
+<body>
+  <form class="form">
+    <label>
+      <input class="input-text" type="text" name="search" placeholder="Search images..." />
+    </label>
+
+    <button class="form-btn" type="submit">Search</button>
+  </form>
+
+  <ul class="gallery js-gallery"></ul>
+
+  <div class="wrap-loader">
+    <span class="loader js-loader"></span>
+  </div>
+  <div class="btn-container">
+    <button type="button" class="loadmore-btn" data-action="load-more">
+      <span class="label-btn-primary">Load more</span>
+    </button>
+  </div>
+</body>
+
 </html>
