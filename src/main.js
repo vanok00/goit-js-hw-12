@@ -3,6 +3,7 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import searchPhotoQuery from './js/pixabay-api.js';
 import createImages from './js/render-function.js';
+import { toggleLoader } from './js/render-function.js';
 
 const form = document.querySelector('.form');
 const loader = document.querySelector('.js-loader');
@@ -33,9 +34,9 @@ async function searchPhoto(event) {
       backgroundColor: '#EF4040',
     });
     loadMoreBtnEl.style.display = 'none';
+    toggleLoader(false);
     return;
   }
-  loader.style.display = 'none';
 
   const options = {
     params: {
@@ -50,6 +51,7 @@ async function searchPhoto(event) {
   };
 
   try {
+    toggleLoader(true);
     const data = await searchPhotoQuery(options);
     loader.style.display = 'none';
 
@@ -74,6 +76,7 @@ async function searchPhoto(event) {
       }`,
     });
   } finally {
+    toggleLoader(false);
     if (totalHits < 15) {
       loadMoreBtnEl.style.display = 'none';
     }
@@ -117,6 +120,7 @@ async function handleLoadMore() {
       }`,
     });
   } finally {
+    toggleLoader(false);
     if (currentPage >= totalPagesToLoad) {
       loadMoreBtnEl.style.display = 'none';
       iziToast.info({

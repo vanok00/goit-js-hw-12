@@ -21,6 +21,9 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+.is-hidden {
+  display: none;
+}
 
 h2 {
   font-weight: 600;
@@ -39,19 +42,19 @@ p {
   color: #2e2f42;
   text-align: center;
 }
-.list {
+/* .list {
   list-style-type: none;
   display: flex;
   flex-flow: row wrap;
   column-gap: 18px;
   row-gap: 24px;
   justify-content: center;
-}
+} */
+
 .form {
   display: flex;
   gap: 8px;
   justify-content: center;
-  align-items: center;
   margin-bottom: 32px;
 }
 .input-text {
@@ -112,13 +115,17 @@ img {
   justify-content: center;
 }
 
-.loader-wrapper {
-  text-align: center;
-  width: 256px;
-  height: 24px;
+.js-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 0 auto;
 }
 
-.textloader {
+.loader {
+  display: none;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
@@ -126,22 +133,6 @@ img {
   color: #2e2f42;
 }
 
-.textloader::after {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: 50%;
-  border-left: 4px solid #ff3d00;
-  border-bottom: 4px solid transparent;
-  animation: rotation 0.5s linear infinite reverse;
-}
-
-.js-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin: 0 auto;
+.wrap-loader {
+  text-align: center;
 }
